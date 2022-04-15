@@ -1,7 +1,7 @@
 if test -z "$F_DATA"
     if test -n "$XDG_DATA_HOME"
         set -U F_DATA_DIR "$XDG_DATA_HOME/f"
-    else 
+    else
         set -U F_DATA_DIR "$HOME/.local/share/f"
     end
     set -U F_DATA "$F_DATA_DIR/data"
@@ -9,13 +9,13 @@ end
 
 if test ! -e "$F_DATA"
     if test ! -e "$F_DATA_DIR"
-        mkdir -p -m 700 "$F_DATA_DIR"  
+        mkdir -p -m 700 "$F_DATA_DIR"
     end
     touch "$F_DATA"
 end
 
 if test -z "$F_CMD"
-    set -U F_CMD "f"
+    set -U F_CMD f
 end
 
 if not set -q F_EXCLUDE
@@ -47,7 +47,7 @@ function f_uninstall --on-event f_uninstall
     functions -e $F_CMD
 
     if test -n "$F_DATA"
-        echo "To purge f's data, remove: $F_DATA" > /dev/stderr
+        echo "To purge f's data, remove: $F_DATA" >/dev/stderr
     end
 
     set -e F_CMD

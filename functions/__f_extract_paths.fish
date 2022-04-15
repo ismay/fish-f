@@ -1,7 +1,7 @@
 function __f_extract_paths -d 'Extract valid paths from string $argv[1]'
 
     if test (count $argv) -gt 1
-        echo 'Can only take one argument; more given' > /dev/stderr
+        echo 'Can only take one argument; more given' >/dev/stderr
         return 1
     end
 

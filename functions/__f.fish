@@ -20,15 +20,15 @@ function __f -d "Open recent files entered on command line"
                     -t --recent     Search by recency
                     -x --delete     Remove selected file from database
                     -h --help       Print this help
-        " | string replace -r '^ {12}' ''  # remove unnecessary indent
+        " | string replace -r '^ {12}' '' # remove unnecessary indent
     end
 
-    set -l options "h/help" "c/clean" "o/echo" "l/list" "p/purge" "r/rank" "t/recent" \
-                   "x/delete" "k/pick" "K/picker=" "w/with=" "d/cd" "a/app"
+    set -l options h/help c/clean o/echo l/list p/purge r/rank t/recent \
+        x/delete k/pick "K/picker=" "w/with=" d/cd a/app
 
     argparse -n $F_CMD \
-       -x "a,w,o,l,x" -x "r,t" -x "p,c" -x "l,k" -x "l,K" -x "l,d,x" \
-       $options -- $argv
+        -x "a,w,o,l,x" -x "r,t" -x "p,c" -x "l,k" -x "l,K" -x "l,d,x" \
+        $options -- $argv
     or return
 
     if set -q _flag_help
@@ -36,20 +36,20 @@ function __f -d "Open recent files entered on command line"
         return 0
     else if set -q _flag_clean
         __f_clean
-        echo "'$F_DATA' cleaned!" 
+        echo "'$F_DATA' cleaned!"
         return 0
     else if set -q _flag_purge
-        echo > $F_DATA
-        echo "'$F_DATA' purged!" 
+        echo >$F_DATA
+        echo "'$F_DATA' purged!"
         return 0
     end
 
     set -l typ
 
     if set -q _flag_rank
-        set typ "rank"
+        set typ rank
     else if set -q _flag_recent
-        set typ "recent"
+        set typ recent
     end
 
     set -l f_script '
@@ -182,7 +182,7 @@ function __f -d "Open recent files entered on command line"
 
         if set -q _flag_cd
             # cd into directory of [first] file
-            pushd (string split -rm 1 '/' $targets[1])[1] 2> /dev/null
+            pushd (string split -rm 1 '/' $targets[1])[1] 2>/dev/null
             if test $status -gt 0
                 echo "Parent directory of '$targets[1]' does not exist"
                 return 1
@@ -213,7 +213,7 @@ function __f -d "Open recent files entered on command line"
         else if set -q EDITOR
             set opencmd $EDITOR
         else
-            echo "\$EDITOR not set; cannot open file" > /dev/stderr
+            echo "\$EDITOR not set; cannot open file" >/dev/stderr
             return 1
         end
 
